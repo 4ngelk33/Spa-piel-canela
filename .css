@@ -1,0 +1,15 @@
+/* Estilo de los menús desplegables de reservas */
+.reserva-select {
+    color: #ffffff !important;
+    background-color: #0a0c10 !important;
+}
+
+.reserva-select option {
+    background-color: #12161f !important;
+    color: #ffffff !important;
+}
+
+.reserva-select option:checked {
+    background-color: #D4AF37 !important;
+    color: #0a0c10 !important;
+}

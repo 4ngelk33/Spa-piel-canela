@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PIEL CANELA | Spa Exclusivo para Caballeros</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Configuración personalizada de Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            light: '#F4E0A5',
+                            DEFAULT: '#D4AF37',
+                            dark: '#AA820A',
+                        },
+                        charcoal: {
+                            light: '#1f242d',
+                            DEFAULT: '#12161f',
+                            dark: '#0a0c10',
+                        }
+                    },
+                    fontFamily: {
+                        cinzel: ['Cinzel', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Estilos base personalizados */
+        body {
+            background-color: #0a0c10;
+            color: #e2e8f0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #FFF0C0 0%, #D4AF37 50%, #997819 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gold-gradient-bg {
+            background: linear-gradient(135deg, #E6C667 0%, #D4AF37 50%, #A37F19 100%);
+        }
+
+        .gold-border-glow {
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .gold-border-glow:hover {
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.35);
+            border-color: #D4AF37;
+        }
+
+        .bg-glass {
+            background: rgba(18, 22, 31, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        /* Ocultar barra de desplazamiento en modales manteniendo scroll */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Modal Overlay */
+        .modal-active {
+            opacity: 1 !important;
+            pointer-events: auto !important;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-gold selection:text-black">
+
+    <header class="fixed top-0 left-0 w-full z-40 bg-glass border-b border-gold/10 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-3">
+<div class="w-16 h-16 rounded-full border border-gold/40 flex items-center justify-center bg-black/40 overflow-hidden">
+    <img src="logo.png" alt="Piel Canela Spa" class="w-full h-full object-contain p-1">
+</div>
+                <div>
+                    <span class="font-cinzel text-xl sm:text-2xl font-bold tracking-wider gold-gradient-text block leading-tight">PIEL CANELA</span>
+                    <span class="text-[10px] tracking-[0.2em] text-gray-400 uppercase block">Spa Exclusivo para Caballeros</span>
+                </div>
+            </a>
+
+            <!-- Navegación Escritorio -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium tracking-wide">
+                <a href="#terapias" class="text-gray-300 hover:text-gold transition-colors py-2">Nuestras Terapias</a>
+                <a href="#masajistas" class="text-gray-300 hover:text-gold transition-colors py-2">Staff Exclusivo</a>
+                <a href="#ubicacion" class="text-gray-300 hover:text-gold transition-colors py-2">Ubicación & Club</a>
+                <a href="#reserva" class="text-gray-300 hover:text-gold transition-colors py-2">Reservas</a>
+            </nav>
+
+            <!-- Botón WhatsApp Header -->
+            <div class="hidden sm:block">
+                <a href="#reserva" class="gold-gradient-bg text-black font-semibold text-xs uppercase tracking-widest px-5 py-3 rounded-full hover:brightness-110 transition-all flex items-center gap-2 shadow-lg shadow-gold/10">
+                    <i class="fa-brands fa-whatsapp text-sm"></i>
+                    <span>Reserva VIP</span>
+                </a>
+            </div>
+
+            <!-- Botón Menú Móvil -->
+            <button id="mobile-menu-btn" class="md:hidden text-gray-300 hover:text-gold text-2xl focus:outline-none">
+                <i class="fa-solid fa-bars-staggered"></i>
+            </button>
+        </div>
+
+        <!-- Menú Desplegable Móvil -->
+        <div id="mobile-menu" class="hidden md:hidden bg-charcoal border-b border-gold/20 px-6 py-6 space-y-4">
+            <a href="#terapias" class="block text-gray-300 hover:text-gold text-base py-1">Nuestras Terapias</a>
+            <a href="#masajistas" class="block text-gray-300 hover:text-gold text-base py-1">Staff Exclusivo</a>
+            <a href="#ubicacion" class="block text-gray-300 hover:text-gold text-base py-1">Ubicación & Club</a>
+            <a href="#reserva" class="block text-gray-300 hover:text-gold text-base py-1">Reservas</a>
+            <a href="#reserva" class="block text-center gold-gradient-bg text-black font-bold text-xs uppercase tracking-widest px-5 py-3 rounded-full mt-4">
+                <i class="fa-brands fa-whatsapp mr-1"></i> Reserva por WhatsApp
+            </a>
+        </div>
+    </header>
+
+    <main class="mt-20">
+        <section class="relative min-h-[90vh] flex items-center justify-center overflow-hidden py-20 px-4">
+            <!-- Fondo con overlay sobrio -->
+            <div class="absolute inset-0 bg-[url('spa.jpg')] bg-cover bg-center"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-charcoal-dark via-charcoal-dark/85 to-black/70"></div>
+            
+            <div class="relative z-10 max-w-4xl mx-auto text-center space-y-8">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gold/10 border border-gold/30 text-gold text-xs uppercase tracking-[0.2em]">
+                    <i class="fa-solid fa-crown text-[10px]"></i> Exclusividad & Discreción Absoluta
+                </div>
+
+                <h1 class="font-cinzel text-4xl sm:text-6xl md:text-7xl font-bold leading-tight tracking-wide">
+                    BIENVENIDO A <br>
+                    <span class="gold-gradient-text">PIEL CANELA SPA</span>
+                </h1>
+
+                <p class="text-gray-300 text-base sm:text-lg md:text-xl font-light max-w-2xl mx-auto leading-relaxed">
+                    Nos alegra tenerte en nuestro perfil. Aquí encontrarás un espacio creado para desconectarte de la rutina, consentirte y vivir momentos especiales en un ambiente cálido, privado y lleno de encanto. 
+                </p>
+
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+                    <a href="#terapias" class="w-full sm:w-auto px-8 py-4 rounded-full gold-gradient-bg text-black font-bold text-xs uppercase tracking-widest hover:scale-105 transition-all shadow-xl shadow-gold/10">
+                        Ver Terapias Exclusivas
+                    </a>
+                    <a href="#reserva" class="w-full sm:w-auto px-8 py-4 rounded-full bg-black/60 border border-gold/40 text-gold hover:bg-gold/10 font-bold text-xs uppercase tracking-widest transition-all">
+                        Agendar Cita Directa
+                    </a>
+                </div>
+
+                <!-- Stats Rápidos -->
+                <div class="pt-12 grid grid-cols-2 md:grid-cols-3 gap-6 border-t border-gold/10 max-w-2xl mx-auto text-center">
+                    <div>
+                        <p class="font-cinzel text-2xl font-bold text-gold">100%</p>
+                        <p class="text-xs text-gray-400 uppercase tracking-wider">Privacidad Garantizada</p>
+                    </div>
+                    <div>
+                        <p class="font-cinzel text-2xl font-bold text-gold">7</p>
+                        <p class="text-xs text-gray-400 uppercase tracking-wider">Terapeutas Elite</p>
+                    </div>
+                    <div class="col-span-2 md:col-span-1">
+                        <p class="font-cinzel text-2xl font-bold text-gold">VIP</p>
+                        <p class="text-xs text-gray-400 uppercase tracking-wider">Instalaciones de Lujo</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="terapias" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative">
+            <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+                <span class="text-gold text-xs uppercase tracking-[0.3em] font-semibold">Experiencias Sensoriales</span>
+                <h2 class="font-cinzel text-3xl sm:text-5xl font-bold">Nuestras 4 Terapias Exclusivas</h2>
+                <div class="w-16 h-0.5 bg-gold mx-auto mt-4"></div>
+                <p class="text-gray-400 text-sm sm:text-base pt-2">Descubre nuestros diferentes tipos de masajes y experiencias especiales</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Terapia 1 -->
+                <div class="bg-charcoal rounded-2xl overflow-hidden border border-gold/20 gold-border-glow flex flex-col group">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="23.webp" alt="Masaje Deep Tissue" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-charcoal via-transparent to-transparent"></div>
+                        <span class="absolute top-4 right-4 bg-black/80 border border-gold/40 text-gold text-xs px-3 py-1 rounded-full font-semibold">30 Min/45 Min/60 Min</span>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                        <div>
+                            <h3 class="font-cinzel text-xl font-bold text-white group-hover:text-gold transition-colors">PIEL CANELA SPA — ELIGE TU MOMENTO</h3>
+                            <p class="text-gray-400 text-sm mt-3 leading-relaxed">
+                                Un espacio pensado para consentirte, desconectarte de la rutina y disfrutar de una atención personalizada, cálida y discreta.
+                            </p>
+                        </div>
+                        <ul class="space-y-2 border-t border-gold/10 pt-4 text-xs text-gray-300">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold text-[10px]"></i> 🌹 1 horita — $180.000</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold text-[10px]"></i> ✨ 45 minutos — $150.000</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold text-[10px]"></i> 💫 Media horita — $130.000</li>
+                        </ul>
+                         <div>
+                            <p class="text-gray-400 text-sm mt-3 leading-relaxed">
+                                En cualquiera de nuestros tiempos puedes elegir entre 4 estilos de masaje:
+💪 Fuerte · 🤲 Suave · 🪶 Plumita · 🌿 Sueco
+
+💛 Trato cercano, besitos y caricias
+🤫 Ambiente privado y máxima discreción
+✨ Una experiencia especial adaptada al tiempo que elijas.
+                            </p>
+                        </div>
+                        <a href="#reserva" onclick="preselectTherapy('Deep Tissue & Bio-Relaxing')" class="block text-center w-full py-3 rounded-xl bg-black/50 border border-gold/30 text-gold hover:bg-gold hover:text-black font-semibold text-xs uppercase tracking-wider transition-all">
+                            Reservar Esta Terapia
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Terapia 2 -->
+                <div class="bg-charcoal rounded-2xl overflow-hidden border border-gold/20 gold-border-glow flex flex-col group">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="masaje.webp" alt="Ritual Imperial" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-charcoal via-transparent to-transparent"></div>
+                        <span class="absolute top-4 right-4 bg-black/80 border border-gold/40 text-gold text-xs px-3 py-1 rounded-full font-semibold">60 y 15 Min</span>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                        <div>
+                            <h3 class="font-cinzel text-xl font-bold text-white group-hover:text-gold transition-colors"> EXPERIENCIA VIP – PIEL CANELA SPA</h3>
+                            <p class="text-gray-400 text-sm mt-3 leading-relaxed">
+                                Regálate 1 hora y 15 minutos de atención exclusiva, relajación y complicidad en un ambiente íntimo y reservado.
+                            </p>
+                        </div>
+                        <ul class="space-y-2 border-t border-gold/10 pt-4 text-xs text-gray-300">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold text-[10px]"></i> 🚿 Ducha caliente en compañía</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold text-[10px]"></i> 💆 Masajito fuerte, suave, plumita o sueco</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold text-[10px]"></i> ✨ Atención personalizada durante toda la experiencia</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold text-[10px]"></i> ⏱️ 1 hora y 15 minutos — $320.000</li>
+                        </ul>
+                                                    <p class="text-gray-400 text-sm mt-3 leading-relaxed">
+                                Más tiempo, más atención y una experiencia especial para salir de la rutina. ✨
+                            </p>
+                        <a href="#reserva" onclick="preselectTherapy('Ritual Imperial Sensorial')" class="block text-center w-full py-3 rounded-xl bg-black/50 border border-gold/30 text-gold hover:bg-gold hover:text-black font-semibold text-xs uppercase tracking-wider transition-all">
+                            Reservar Esta Terapia
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Terapia 3 -->
+                <div class="bg-charcoal rounded-2xl overflow-hidden border border-gold/20 gold-border-glow flex flex-col group">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="22.jpg" alt="Descontracturante VIP" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-charcoal via-transparent to-transparent"></div>
+                        <span class="absolute top-4 right-4 bg-black/80 border border-gold/40 text-gold text-xs px-3 py-1 rounded-full font-semibold"></span>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                        <div>
+                            <h3 class="font-cinzel text-xl font-bold text-white group-hover:text-gold transition-colors">DEPILACIÓN MASCULINA – PIEL CANELA SPA</h3>
+                            <p class="text-gray-400 text-sm mt-3 leading-relaxed">
+                                Una experiencia de cuidado personal pensada especialmente para caballeros, con atención privada, delicada y discreta.
+                            </p>
+                        </div>
+                        <ul class="space-y-2 border-t border-gold/10 pt-4 text-xs text-gray-300">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold text-[10px]"></i>✨ Depilación íntima con cera: $180.000</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold text-[10px]"></i>✨ Depilación íntima con prestobarba: $160.000</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold text-[10px]"></i>💆‍♂️ Incluye masajito relajante</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold text-[10px]"></i>💪 Masajito muscular</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold text-[10px]"></i>Atención personalizada de la masajista en ropa interior, con un toque sensua</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold text-[10px]"></i>🤫 Privacidad, higiene y máxima discreción</li>
+                        </ul>
+                                                    <p class="text-gray-400 text-sm mt-3 leading-relaxed">
+                               Cuidado, relajación y una atención especial en una sola experiencia.
+                            </p>
+                        <a href="#reserva" onclick="preselectTherapy('Descontracturante & Reflexología VIP')" class="block text-center w-full py-3 rounded-xl bg-black/50 border border-gold/30 text-gold hover:bg-gold hover:text-black font-semibold text-xs uppercase tracking-wider transition-all">
+                            Reservar Esta Terapia
+                        </a>
+                    </div>
+                </div>
+                <div class="bg-charcoal rounded-2xl overflow-hidden border border-gold/20 gold-border-glow flex flex-col group">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="26.jpg" alt="Descontracturante VIP" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-charcoal via-transparent to-transparent"></div>
+                        <span class="absolute top-4 right-4 bg-black/80 border border-gold/40 text-gold text-xs px-3 py-1 rounded-full font-semibold">30 Min/60 Min</span>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                        <div>
+                            <h3 class="font-cinzel text-xl font-bold text-white group-hover:text-gold transition-colors"> EXPERIENCIA DOBLE – PIEL CANELA SPA</h3>
+                            <p class="text-gray-400 text-sm mt-3 leading-relaxed">
+                               ¿Quieres salir de la rutina y vivir algo diferente? Disfruta de una experiencia sensual y exclusiva en compañía de dos de nuestras chicas, con atención dedicada en un ambiente íntimo y reservado.
+                            </p>
+                        </div>
+                        <ul class="space-y-2 border-t border-gold/10 pt-4 text-xs text-gray-300">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold text-[10px]"></i>💋 1 horita con dos chicas — $360.000</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold text-[10px]"></i>🔥 Media horita con dos chicas — $260.000</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold text-[10px]"></i>✨ Dos chicas para consentirte</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold text-[10px]"></i>💆‍♂️ Masajitos y atención personalizada</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold text-[10px]"></i>🌹 Sensualidad, química y complicidad</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-gold text-[10px]"></i>🤫 Privacidad y máxima discreción</li>
+                        </ul>
+                                                    <p class="text-gray-400 text-sm mt-3 leading-relaxed">
+                               Dos chicas, un solo momento y una experiencia difícil de olvidar. 
+                            </p>
+                        <a href="#reserva" onclick="preselectTherapy('Descontracturante & Reflexología VIP')" class="block text-center w-full py-3 rounded-xl bg-black/50 border border-gold/30 text-gold hover:bg-gold hover:text-black font-semibold text-xs uppercase tracking-wider transition-all">
+                            Reservar Esta Terapia
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+         <section id="masajistas" class="py-24 bg-dark-900 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-gold-500 text-xs font-semibold tracking-[0.3em] uppercase">Staff Profesional</span>
+                <h2 class="font-serif text-3xl sm:text-5xl font-bold text-white mt-2">Nuestras 7 Masajistas Exclusivas</h2>
+                <div class="w-20 h-0.5 bg-gradient-to-r from-transparent via-gold-500 to-transparent mx-auto mt-4"></div>
+                <p class="text-gray-400 text-sm mt-4">Terapeutas que destacan por su calidez, distinción, técnica impecable e imagen elegante. Haz clic para ver su galería completa de fotografías.</p>
+            </div>
+
+            <!-- Grid of 7 Therapists -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- Therapist items populated dynamically / structured cleanly -->
+                
+                <!-- Therapist 1: daniela -->
+                <div class="bg-dark-800 rounded-2xl overflow-hidden gold-border-glow group flex flex-col justify-between">
+                    <div class="relative overflow-hidden cursor-pointer h-80" onclick="openGallery(0)">
+                        <img src="Samanta.jpeg" alt="Valentina" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-900 via-transparent to-transparent opacity-80"></div>
+                        <div class="absolute bottom-3 left-3 bg-dark-900/80 backdrop-blur-md px-3 py-1 rounded-full text-[10px] text-gold-300 flex items-center gap-1 border border-gold-500/30">
+                            <i class="fa-solid fa-camera"></i> Ver Galería (3 Fotos)
+                        </div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow justify-between">
+                        <div>
+                            <h3 class="font-serif text-2xl font-bold text-white">Samanta</h3>
+                            <span class="text-xs text-gold-500 font-medium tracking-wider block mb-2">22 Años</span>
+                            <p class="text-xs text-gray-400 line-clamp-2">Delgada, linda y con una presencia encantadora, Samantha combina dulzura y elegancia.</p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-gray-800/80 flex gap-2">
+                            <button onclick="openGallery(0)" class="flex-1 py-2 bg-dark-700 text-gray-300 hover:text-white hover:bg-dark-600 rounded-lg text-xs font-medium transition-colors">
+                                Fotos
+                            </button>
+                            <button onclick="selectMasajista('Valentina')" class="flex-1 py-2 bg-gold-500/10 hover:bg-gold-500 text-gold-500 hover:text-dark-900 border border-gold-500/30 rounded-lg text-xs font-semibold transition-all">
+                                Elegir
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Therapist 2: Isabella -->
+                <div class="bg-dark-800 rounded-2xl overflow-hidden gold-border-glow group flex flex-col justify-between">
+                    <div class="relative overflow-hidden cursor-pointer h-80" onclick="openGallery(1)">
+                        <img src="laura.jpg" alt="Isabella" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-900 via-transparent to-transparent opacity-80"></div>
+                        <div class="absolute bottom-3 left-3 bg-dark-900/80 backdrop-blur-md px-3 py-1 rounded-full text-[10px] text-gold-300 flex items-center gap-1 border border-gold-500/30">
+                            <i class="fa-solid fa-camera"></i> Ver Galería (3 Fotos)
+                        </div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow justify-between">
+                        <div>
+                            <h3 class="font-serif text-2xl font-bold text-white">Laura</h3>
+                            <span class="text-xs text-gold-500 font-medium tracking-wider block mb-2">28 Años</span>
+                            <p class="text-xs text-gray-400 line-clamp-2">Una hermosa piel canela, se destaca por su atención cálida, amable y dedicada. </p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-gray-800/80 flex gap-2">
+                            <button onclick="openGallery(1)" class="flex-1 py-2 bg-dark-700 text-gray-300 hover:text-white hover:bg-dark-600 rounded-lg text-xs font-medium transition-colors">
+                                Fotos
+                            </button>
+                            <button onclick="selectMasajista('Isabella')" class="flex-1 py-2 bg-gold-500/10 hover:bg-gold-500 text-gold-500 hover:text-dark-900 border border-gold-500/30 rounded-lg text-xs font-semibold transition-all">
+                                Elegir
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Therapist 3: Camila -->
+                <div class="bg-dark-800 rounded-2xl overflow-hidden gold-border-glow group flex flex-col justify-between">
+                    <div class="relative overflow-hidden cursor-pointer h-80" onclick="openGallery(2)">
+                        <img src="Michell.jpg" alt="Camila" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-900 via-transparent to-transparent opacity-80"></div>
+                        <div class="absolute bottom-3 left-3 bg-dark-900/80 backdrop-blur-md px-3 py-1 rounded-full text-[10px] text-gold-300 flex items-center gap-1 border border-gold-500/30">
+                            <i class="fa-solid fa-camera"></i> Ver Galería (3 Fotos)
+                        </div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow justify-between">
+                        <div>
+                            <h3 class="font-serif text-2xl font-bold text-white">Michell</h3>
+                            <span class="text-xs text-gold-500 font-medium tracking-wider block mb-2">32 años</span>
+                            <p class="text-xs text-gray-400 line-clamp-2">Dulce, encantadora y con ese carisma que te hace sentir cómodo.</p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-gray-800/80 flex gap-2">
+                            <button onclick="openGallery(2)" class="flex-1 py-2 bg-dark-700 text-gray-300 hover:text-white hover:bg-dark-600 rounded-lg text-xs font-medium transition-colors">
+                                Fotos
+                            </button>
+                            <button onclick="selectMasajista('Camila')" class="flex-1 py-2 bg-gold-500/10 hover:bg-gold-500 text-gold-500 hover:text-dark-900 border border-gold-500/30 rounded-lg text-xs font-semibold transition-all">
+                                Elegir
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Therapist 4: Sofía -->
+                <div class="bg-dark-800 rounded-2xl overflow-hidden gold-border-glow group flex flex-col justify-between">
+                    <div class="relative overflow-hidden cursor-pointer h-80" onclick="openGallery(3)">
+                        <img src="Sofia.jpg" alt="Sofía" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-900 via-transparent to-transparent opacity-80"></div>
+                        <div class="absolute bottom-3 left-3 bg-dark-900/80 backdrop-blur-md px-3 py-1 rounded-full text-[10px] text-gold-300 flex items-center gap-1 border border-gold-500/30">
+                            <i class="fa-solid fa-camera"></i> Ver Galería (3 Fotos)
+                        </div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow justify-between">
+                        <div>
+                            <h3 class="font-serif text-2xl font-bold text-white">Sofía</h3>
+                            <span class="text-xs text-gold-500 font-medium tracking-wider block mb-2">20 Años</span>
+                            <p class="text-xs text-gray-400 line-clamp-2">Con su carita de ángel, su sonrisa dulce y una personalidad que enamora.</p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-gray-800/80 flex gap-2">
+                            <button onclick="openGallery(3)" class="flex-1 py-2 bg-dark-700 text-gray-300 hover:text-white hover:bg-dark-600 rounded-lg text-xs font-medium transition-colors">
+                                Fotos
+                            </button>
+                            <button onclick="selectMasajista('Sofía')" class="flex-1 py-2 bg-gold-500/10 hover:bg-gold-500 text-gold-500 hover:text-dark-900 border border-gold-500/30 rounded-lg text-xs font-semibold transition-all">
+                                Elegir
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Therapist 5: Natalia -->
+                <div class="bg-dark-800 rounded-2xl overflow-hidden gold-border-glow group flex flex-col justify-between">
+                    <div class="relative overflow-hidden cursor-pointer h-80" onclick="openGallery(4)">
+                        <img src="Katalina.jpg" alt="Natalia" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-900 via-transparent to-transparent opacity-80"></div>
+                        <div class="absolute bottom-3 left-3 bg-dark-900/80 backdrop-blur-md px-3 py-1 rounded-full text-[10px] text-gold-300 flex items-center gap-1 border border-gold-500/30">
+                            <i class="fa-solid fa-camera"></i> Ver Galería (3 Fotos)
+                        </div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow justify-between">
+                        <div>
+                            <h3 class="font-serif text-2xl font-bold text-white">Katalina</h3>
+                            <span class="text-xs text-gold-500 font-medium tracking-wider block mb-2">23 Años</span>
+                            <p class="text-xs text-gray-400 line-clamp-2">Es linda, femenina y encantadora, con una atención especial.</p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-gray-800/80 flex gap-2">
+                            <button onclick="openGallery(4)" class="flex-1 py-2 bg-dark-700 text-gray-300 hover:text-white hover:bg-dark-600 rounded-lg text-xs font-medium transition-colors">
+                                Fotos
+                            </button>
+                            <button onclick="selectMasajista('Natalia')" class="flex-1 py-2 bg-gold-500/10 hover:bg-gold-500 text-gold-500 hover:text-dark-900 border border-gold-500/30 rounded-lg text-xs font-semibold transition-all">
+                                Elegir
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Therapist 6: Elena -->
+                <div class="bg-dark-800 rounded-2xl overflow-hidden gold-border-glow group flex flex-col justify-between">
+                    <div class="relative overflow-hidden cursor-pointer h-80" onclick="openGallery(5)">
+                        <img src="Mia.jpg" alt="Elena" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-900 via-transparent to-transparent opacity-80"></div>
+                        <div class="absolute bottom-3 left-3 bg-dark-900/80 backdrop-blur-md px-3 py-1 rounded-full text-[10px] text-gold-300 flex items-center gap-1 border border-gold-500/30">
+                            <i class="fa-solid fa-camera"></i> Ver Galería (3 Fotos)
+                        </div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow justify-between">
+                        <div>
+                            <h3 class="font-serif text-2xl font-bold text-white">Mia</h3>
+                            <span class="text-xs text-gold-500 font-medium tracking-wider block mb-2">21 Años</span>
+                            <p class="text-xs text-gray-400 line-clamp-2">Hay días en los que el cuerpo simplemente pide una pausa. y Mía sabe cómo hacerlo.</p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-gray-800/80 flex gap-2">
+                            <button onclick="openGallery(5)" class="flex-1 py-2 bg-dark-700 text-gray-300 hover:text-white hover:bg-dark-600 rounded-lg text-xs font-medium transition-colors">
+                                Fotos
+                            </button>
+                            <button onclick="selectMasajista('Elena')" class="flex-1 py-2 bg-gold-500/10 hover:bg-gold-500 text-gold-500 hover:text-dark-900 border border-gold-500/30 rounded-lg text-xs font-semibold transition-all">
+                                Elegir
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Therapist 7: Mariana -->
+                <div class="bg-dark-800 rounded-2xl overflow-hidden gold-border-glow group flex flex-col justify-between">
+                    <div class="relative overflow-hidden cursor-pointer h-80" onclick="openGallery(6)">
+                        <img src="Kamila.jpg" alt="Mariana" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-900 via-transparent to-transparent opacity-80"></div>
+                        <div class="absolute bottom-3 left-3 bg-dark-900/80 backdrop-blur-md px-3 py-1 rounded-full text-[10px] text-gold-300 flex items-center gap-1 border border-gold-500/30">
+                            <i class="fa-solid fa-camera"></i> Ver Galería (3 Fotos)
+                        </div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow justify-between">
+                        <div>
+                            <h3 class="font-serif text-2xl font-bold text-white">Kamila</h3>
+                            <span class="text-xs text-gold-500 font-medium tracking-wider block mb-2">27 Años</span>
+                            <p class="text-xs text-gray-400 line-clamp-2">Combina elegancia, curvas y una personalidad encantadora.</p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-gray-800/80 flex gap-2">
+                            <button onclick="openGallery(6)" class="flex-1 py-2 bg-dark-700 text-gray-300 hover:text-white hover:bg-dark-600 rounded-lg text-xs font-medium transition-colors">
+                                Fotos
+                            </button>
+                            <button onclick="selectMasajista('Mariana')" class="flex-1 py-2 bg-gold-500/10 hover:bg-gold-500 text-gold-500 hover:text-dark-900 border border-gold-500/30 rounded-lg text-xs font-semibold transition-all">
+                                Elegir
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <div id="gallery-modal" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-lg hidden items-center justify-center p-4">
+        <button onclick="closeGallery()" class="absolute top-6 right-6 text-gray-400 hover:text-white text-3xl focus:outline-none z-10">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <div class="max-w-4xl w-full flex flex-col items-center">
+            <!-- Modal Header -->
+            <div class="text-center mb-4">
+                <h3 id="modal-therapist-name" class="font-serif text-3xl font-bold text-gold-500"></h3>
+                <p id="modal-therapist-role" class="text-xs text-gray-400 uppercase tracking-widest mt-1"></p>
+            </div>
+
+            <!-- Main Image Viewer -->
+            <div class="relative w-full max-w-lg h-[450px] sm:h-[520px] rounded-2xl overflow-hidden border border-gold-500/30 shadow-2xl bg-dark-900">
+                <img id="modal-main-image" src="" alt="Galería Masajista" class="w-full h-full object-cover transition-all duration-300">
+                
+                <!-- Navigation Arrows -->
+                <button onclick="prevImage()" class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-dark-900/80 text-white hover:bg-gold-500 hover:text-dark-900 border border-gold-500/30 flex items-center justify-center transition-all">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <button onclick="nextImage()" class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-dark-900/80 text-white hover:bg-gold-500 hover:text-dark-900 border border-gold-500/30 flex items-center justify-center transition-all">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
+
+            <!-- Thumbnails Bar -->
+            <div id="modal-thumbnails" class="flex gap-3 mt-4">
+                <!-- Thumbnails inserted dynamically -->
+            </div>
+
+            <!-- Select Action inside Modal -->
+            <button id="modal-select-btn" class="mt-6 px-8 py-3 bg-gradient-to-r from-gold-600 to-gold-500 text-dark-900 font-bold text-xs uppercase tracking-wider rounded-full shadow-lg hover:brightness-110 transition-all">
+                Reservar con esta Masajista
+            </button>
+        </div>
+    </div>
+
+    <section id="ubicacion" class="py-24 bg-dark-800 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                
+                <!-- Text Details -->
+                <div>
+                    <span class="text-gold-500 text-xs font-semibold tracking-[0.3em] uppercase">Instalaciones & Privacidad</span>
+                    <h2 class="font-serif text-3xl sm:text-5xl font-bold text-white mt-2 mb-6">Ubicación Privada & Exclusiva</h2>
+                    
+                    <p class="text-gray-300 text-sm leading-relaxed mb-6">
+                        Ubicados en la localidad de Usaquen,
+                        Barrio Cedritos
+                        calle 140 #13-36 local 7
+                    </p>
+
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-start gap-4 p-4 rounded-xl bg-dark-900 border border-gold-500/15">
+                            <div class="w-10 h-10 rounded-lg bg-gold-500/10 text-gold-500 flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-shield-halved text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white text-sm font-semibold">Absoluta Discreción & Seguridad</h4>
+                                <p class="text-xs text-gray-400 mt-0.5">Acceso privado directo sin salas de espera compartidas.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4 p-4 rounded-xl bg-dark-900 border border-gold-500/15">
+                            <div class="w-10 h-10 rounded-lg bg-gold-500/10 text-gold-500 flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-square-parking text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white text-sm font-semibold">Parqueaderos Privados Cercanos</h4>
+                                <p class="text-xs text-gray-400 mt-0.5">KFC, OXXO, FARMATODO</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Location Map Placeholder Card -->
+                <div class="bg-dark-900 p-4 rounded-2xl gold-border-glow">
+                    <div class="relative w-full h-[380px] rounded-xl overflow-hidden">
+
+    <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.281177305818!2d-74.0404495!3d4.7211462!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f85689ef26d7b%3A0x84ac4a8262e67b24!2sPIEL%20CANELA%20SPA!5e0!3m2!1ses!2sco!4v1789756598252!5m2!1ses!2sco%22%20width=%22600%22%20height=%22450%22%20style=%22border:0;%22%20allowfullscreen=%22%22%20loading=%22lazy%22%20referrerpolicy=%22strict-origin-when-cross-origin%22%3E%3C/iframe%3E"
+        class="w-full h-full"
+        style="border:0;"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+
+
+
+    </div>
+</div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="reserva" class="py-24 bg-dark-900 relative">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-dark-800 rounded-3xl p-6 sm:p-12 gold-border-glow relative overflow-hidden">
+                <!-- Ambient glow -->
+                <div class="absolute top-0 right-0 w-64 h-64 bg-gold-500/5 rounded-full filter blur-3xl pointer-events-none"></div>
+
+                <div class="text-center mb-10">
+                    <span class="text-gold-500 text-xs font-semibold tracking-[0.3em] uppercase">Atención Inmediata</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-white mt-1">Reserva Directa vía WhatsApp</h2>
+                    <p class="text-gray-400 text-xs sm:text-sm mt-2">Selecciona tus preferencias a continuación. Al presionar el botón se abrirá WhatsApp con el mensaje estructurado listo para enviar.</p>
+                </div>
+
+                <form id="whatsapp-form" class="space-y-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <!-- Nombre -->
+                        <div>
+                            <label class="block text-xs uppercase tracking-wider text-gray-300 font-semibold mb-2">Su Nombre / Distintivo</label>
+                            <input type="text" id="form-name" placeholder="Ej: Sr. Don Ricardo" required class="w-full bg-dark-900 border border-gray-700 rounded-xl px-4 py-3 text-sm text-black focus:outline-none focus:border-gold-500 transition-colors">
+                        </div>
+
+                        <!-- WhatsApp / Telefono -->
+                        <div>
+                            <label class="block text-xs uppercase tracking-wider text-gray-300 font-semibold mb-2">Número de WhatsApp</label>
+                            <input type="tel" id="form-phone" placeholder="Ej: +52 55 1234 5678" required class="w-full bg-dark-900 border border-gray-700 rounded-xl px-4 py-3 text-sm text-black focus:outline-none focus:border-gold-500 transition-colors">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <!-- Terapia -->
+                        <div>
+                            <label class="block text-xs uppercase tracking-wider text-gray-300 font-semibold mb-2">Seleccione Terapia</label>
+                            <select id="form-therapy" class="w-full bg-dark-900 border border-gray-700 rounded-xl px-4 py-3 text-sm text-black focus:outline-none focus:border-gold-500 transition-colors">
+                                <option value="Terapia Holística Premium">PIEL CANELA SPA — ELIGE TU MOMENTO</option>
+                                <option value="Descontracturante & Deportivo VIP">EXPERIENCIA VIP – PIEL CANELA SPA</option>
+                                <option value="Ritual Sensorial a 4 Manos Exclusivo">DEPILACIÓN MASCULINA – PIEL CANELA SPA</option>
+                                <option value="Ritual Sensorial a 4 Manos Exclusivo">EXPERIENCIA DOBLE – PIEL CANELA SPA</option>
+                            </select>
+                        </div>
+
+                        <!-- Masajista -->
+                        <div>
+                            <label class="block text-xs uppercase tracking-wider text-gray-300 font-semibold mb-2">Seleccione Masajista</label>
+                            <select id="form-therapy" class="reserva-select w-full bg-dark-900 text-black border border-gray-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold-500 transition-colors">
+                                <option value="Cualquier Masajista Disponible">Cualquiera Disponible</option>
+                                <option value="Valentina">Samanta</option>
+                                <option value="Isabella">Laura</option>
+                                <option value="Camila">Michell</option>
+                                <option value="Sofía">Sofía</option>
+                                <option value="Natalia">Katalina</option>
+                                <option value="Elena">Mia</option>
+                                <option value="Mariana">Kamila</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Fecha Preferida -->
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-gray-300 font-semibold mb-2">Fecha Preferida</label>
+                        <input type="date" id="form-date" class="w-full bg-dark-900 border border-gray-700 rounded-xl px-4 py-3 text-sm text-black focus:outline-none focus:border-gold-500 transition-colors">
+                    </div>
+
+                    <!-- Notas Especiales -->
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-gray-300 font-semibold mb-2">Comentarios o Requerimientos Especiales</label>
+                        <textarea id="form-notes" rows="3" placeholder="Ej: Solicitud de aromaterapia suave, bebidas de preferencia..." class="w-full bg-dark-900 border border-gray-700 rounded-xl px-4 py-3 text-sm text-black focus:outline-none focus:border-gold-500 transition-colors"></textarea>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="button" onclick="sendToWhatsApp()" class="w-full py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm uppercase tracking-widest rounded-xl shadow-lg transition-all flex items-center justify-center gap-3">
+                        <i class="fa-brands fa-whatsapp text-2xl"></i>
+                        <span>Enviar Reserva por WhatsApp</span>
+                    </button>
+
+                    
+                </form>
+            </div>
+        </div>
+        
+    </section>
+
+    <footer class="bg-dark-900 border-t border-gray-800 py-12 text-center text-xs text-gray-500">
+        <div class="max-w-7xl mx-auto px-4">
+            <p class="font-serif text-lg font-bold text-gold-500 mb-2">PIEL CANELA - SPA PARA CABALLEROS</p>
+            <p class="mb-4">Exclusividad, Privacidad & Bienestar de Alto Prestigio</p>
+            <p>&copy; <span id="year"></span> Aura VIP Spa. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Mobile Menu Toggle
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Masajistas Data & Galleries
+        const masajistasData = [
+            {
+                name: "Samanta",
+                role: "",
+                images: [
+                    "1.jpg",
+                    "2.jpg",
+                    "3.jpg",
+
+                ]
+            },
+            {
+                name: "Laura",
+                role: "",
+                images: [
+                    "5.jpg",
+                    "6.jpg",
+                    "7.jpg"
+                ]
+            },
+            {
+                name: "Michell",
+                role: "",
+                images: [
+                    "nueva.png",
+                    "9.jpg",
+                    "10.jpg"
+                ]
+            },
+            {
+                name: "Sofía",
+                role: "",
+                images: [
+                    "sofia.jpg",
+                    "11.jpg",
+                    "12.jpg"
+                ]
+            },
+            {
+                name: "Katalina",
+                role: "",
+                images: [
+                    "13.jpg",
+                    "14.jpg",
+                    "15.jpg"
+                ]
+            },
+            {
+                name: "Mia",
+                role: "",
+                images: [
+                    "16.jpg",
+                    "17.jpg",
+                    "18.jpg"
+                ]
+            },
+            {
+                name: "Kamila",
+                role: "",
+                images: [
+                    "19.jpg",
+                    "20.jpg",
+                    "nueva 2.png"
+                ]
+            }
+        ];
+
+        let currentTherapistIndex = 0;
+        let currentImageIndex = 0;
+
+        function openGallery(therapistIndex) {
+            currentTherapistIndex = therapistIndex;
+            currentImageIndex = 0;
+
+            const data = masajistasData[therapistIndex];
+            document.getElementById('modal-therapist-name').textContent = data.name;
+            document.getElementById('modal-therapist-role').textContent = data.role;
+
+            updateModalImage();
+            renderThumbnails();
+
+            document.getElementById('modal-select-btn').onclick = () => {
+                selectMasajista(data.name);
+                closeGallery();
+            };
+
+            const modal = document.getElementById('gallery-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeGallery() {
+            const modal = document.getElementById('gallery-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function updateModalImage() {
+            const data = masajistasData[currentTherapistIndex];
+            document.getElementById('modal-main-image').src = data.images[currentImageIndex];
+            
+            // Highlight active thumbnail
+            const thumbs = document.querySelectorAll('.modal-thumb');
+            thumbs.forEach((thumb, idx) => {
+                if (idx === currentImageIndex) {
+                    thumb.classList.add('border-gold-500');
+                    thumb.classList.remove('border-transparent');
+                } else {
+                    thumb.classList.remove('border-gold-500');
+                    thumb.classList.add('border-transparent');
+                }
+            });
+        }
+
+        function renderThumbnails() {
+            const data = masajistasData[currentTherapistIndex];
+            const container = document.getElementById('modal-thumbnails');
+            container.innerHTML = '';
+
+            data.images.forEach((imgUrl, idx) => {
+                const thumb = document.createElement('img');
+                thumb.src = imgUrl;
+                thumb.className = `modal-thumb w-16 h-16 object-cover rounded-lg cursor-pointer border-2 transition-all ${idx === 0 ? 'border-gold-500' : 'border-transparent'}`;
+                thumb.onclick = () => {
+                    currentImageIndex = idx;
+                    updateModalImage();
+                };
+                container.appendChild(thumb);
+            });
+        }
+
+        function prevImage() {
+            const data = masajistasData[currentTherapistIndex];
+            currentImageIndex = (currentImageIndex - 1 + data.images.length) % data.images.length;
+            updateModalImage();
+        }
+
+        function nextImage() {
+            const data = masajistasData[currentTherapistIndex];
+            currentImageIndex = (currentImageIndex + 1) % data.images.length;
+            updateModalImage();
+        }
+
+        // Quick Selection Helpers
+        function selectTherapy(therapyName) {
+            document.getElementById('form-therapy').value = therapyName;
+            document.getElementById('reserva').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function selectMasajista(masajistaName) {
+            document.getElementById('form-masajista').value = masajistaName;
+            document.getElementById('reserva').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Send to WhatsApp Functionality
+function sendToWhatsApp() {
+    const name = document.getElementById('form-name').value.trim();
+    const phone = document.getElementById('form-phone').value.trim();
+    const therapy = document.getElementById('form-therapy').value;
+    const masajista = document.getElementById('form-masajista') ? document.getElementById('form-masajista').value : 'Cualquiera Disponible';
+    const date = document.getElementById('form-date').value;
+    const notes = document.getElementById('form-notes').value.trim();
+
+    if (!name) {
+        alert('Por favor ingrese su nombre.');
+        return;
+    }
+
+    let message = `*SOLICITUD DE RESERVA VIP - PIEL CANELA SPA*\n\n`;
+    message += `👤 *Cliente:* ${name}\n`;
+    if (phone) message += `📞 *Teléfono:* ${phone}\n`;
+    message += `💆‍♂️ *Terapia:* ${therapy}\n`;
+    message += `👑 *Masajista:* ${masajista}\n`;
+    if (date) message += `📅 *Fecha Deseada:* ${date}\n`;
+    if (notes) message += `📝 *Notas:* ${notes}\n`;
+    message += `\nQuedo a la espera de la confirmación de la cita. Muchas gracias.`;
+
+    const encodedMessage = encodeURIComponent(message);
+    const phoneNumber = "573245735138";
+
+    window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
+}
+    </script>
+
+    
+</body>
+</html>
